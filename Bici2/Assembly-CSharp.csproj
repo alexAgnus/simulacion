@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\script\rotacion.cs" />
     <Compile Include="Assets\script\Camara.cs" />
+    <Compile Include="Assets\script\Camion.cs" />
     <Compile Include="Assets\script\bikemove2.cs" />
   </ItemGroup>
   <ItemGroup>
