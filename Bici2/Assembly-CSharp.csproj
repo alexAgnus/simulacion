@@ -59,9 +59,12 @@
     <Compile Include="Assets\script\rotacion.cs" />
     <Compile Include="Assets\script\Camara.cs" />
     <Compile Include="Assets\script\bikemove2.cs" />
+    <Compile Include="Assets\Pickup\Scripts\RotateCamera.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Understone\Free Bike Pack\readme.txt" />
+    <None Include="Assets\Single_detailed_truck\readme.txt" />
+    <None Include="Assets\POLYGON city pack\Read_me.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
