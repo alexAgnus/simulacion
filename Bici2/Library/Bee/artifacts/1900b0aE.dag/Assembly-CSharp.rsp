@@ -362,6 +362,8 @@
 "Assets/script/bikemove2.cs"
 "Assets/script/Camara.cs"
 "Assets/script/rotacion.cs"
+"Assets/Scripts semaforo/semaforo_1.cs"
+"Assets/Scripts semaforo/semaforo_2.cs"
 -langversion:9.0
 
 /deterministic
