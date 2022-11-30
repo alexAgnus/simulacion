@@ -15,7 +15,7 @@ D:/Cristian/Documents/Simulacion/Bici2
 -logFile
 Logs/AssetImportWorker2.log
 -srvPort
-51304
+53973
 Successfully changed project path to: D:/Cristian/Documents/Simulacion/Bici2
 D:/Cristian/Documents/Simulacion/Bici2
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,7 +47,7 @@ D:/Cristian/Documents/Simulacion/Bici2
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 295.80 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 250.98 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.12f1 (8af3c3e441b1)
 [Subsystems] Discovering subsystems at path D:/Program Files/2021.3.12f1/Editor/Data/Resources/UnitySubsystems
@@ -63,92 +63,92 @@ Initialize mono
 Mono path[0] = 'D:/Program Files/2021.3.12f1/Editor/Data/Managed'
 Mono path[1] = 'D:/Program Files/2021.3.12f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'D:/Program Files/2021.3.12f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56604
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56356
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: D:/Program Files/2021.3.12f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: D:/Program Files/2021.3.12f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.008803 seconds.
+Registered in 0.007402 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 185.96 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 271.60 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.390 seconds
+- Completed reload, in  2.029 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1391ms)
-		BeginReloadAssembly (189ms)
+	ReloadAssembly (2032ms)
+		BeginReloadAssembly (320ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (976ms)
-			LoadAssemblies (193ms)
+		EndReloadAssembly (1308ms)
+			LoadAssemblies (323ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (213ms)
+			SetupTypeCache (300ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (55ms)
-			SetupLoadedEditorAssemblies (607ms)
+			RebuildScriptCaches (59ms)
+			SetupLoadedEditorAssemblies (845ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (106ms)
+				InitializePlatformSupportModulesInManaged (116ms)
 				SetLoadedEditorAssemblies (3ms)
-				RefreshPlugins (188ms)
-				BeforeProcessingInitializeOnLoad (4ms)
-				ProcessInitializeOnLoadAttributes (210ms)
-				ProcessInitializeOnLoadMethodAttributes (96ms)
+				RefreshPlugins (272ms)
+				BeforeProcessingInitializeOnLoad (3ms)
+				ProcessInitializeOnLoadAttributes (281ms)
+				ProcessInitializeOnLoadMethodAttributes (169ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.010285 seconds.
+Registered in 0.030088 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image D:\Cristian\Documents\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image D:\Cristian\Documents\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 146.52 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 174.79 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.986 seconds
+- Completed reload, in  3.795 seconds
 Domain Reload Profiling:
-	ReloadAssembly (2988ms)
-		BeginReloadAssembly (435ms)
+	ReloadAssembly (3797ms)
+		BeginReloadAssembly (525ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (11ms)
+			DisableScriptedObjects (25ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (160ms)
-		EndReloadAssembly (2305ms)
-			LoadAssemblies (318ms)
+			CreateAndSetChildDomain (197ms)
+		EndReloadAssembly (2955ms)
+			LoadAssemblies (314ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (601ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (170ms)
-			SetupLoadedEditorAssemblies (1185ms)
+			SetupTypeCache (626ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (240ms)
+			SetupLoadedEditorAssemblies (1721ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (21ms)
+				InitializePlatformSupportModulesInManaged (35ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (147ms)
-				BeforeProcessingInitializeOnLoad (193ms)
-				ProcessInitializeOnLoadAttributes (710ms)
-				ProcessInitializeOnLoadMethodAttributes (106ms)
-				AfterProcessingInitializeOnLoad (8ms)
+				RefreshPlugins (175ms)
+				BeforeProcessingInitializeOnLoad (171ms)
+				ProcessInitializeOnLoadAttributes (1210ms)
+				ProcessInitializeOnLoadMethodAttributes (122ms)
+				AfterProcessingInitializeOnLoad (7ms)
 				EditorAssembliesLoaded (1ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (15ms)
+			AwakeInstancesAfterBackupRestoration (16ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.13 seconds
-Refreshing native plugins compatible for Editor in 1.44 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.20 seconds
+Refreshing native plugins compatible for Editor in 1.69 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3571 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 48 unused Assets / (0.6 MB). Loaded Objects now: 4047.
-Memory consumption went from 144.7 MB to 144.1 MB.
-Total: 6.861100 ms (FindLiveObjects: 0.463600 ms CreateObjectMapping: 0.168900 ms MarkObjects: 5.871100 ms  DeleteObjects: 0.355400 ms)
+Unloading 3574 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 48 unused Assets / (0.6 MB). Loaded Objects now: 4053.
+Memory consumption went from 145.3 MB to 144.7 MB.
+Total: 7.518100 ms (FindLiveObjects: 1.148000 ms CreateObjectMapping: 0.394800 ms MarkObjects: 5.465800 ms  DeleteObjects: 0.506200 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -160,120 +160,6 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 88761.374025 seconds.
-  path: Assets/School Bus/Prefab
-  artifactKey: Guid(adcb2fd0b18ff0a498e950ba36134db0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/School Bus/Prefab using Guid(adcb2fd0b18ff0a498e950ba36134db0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a46a1f1988ca6ad8618280d8c4c66f9') in 0.036869 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 26.670601 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles
-  artifactKey: Guid(3396674253d0b0a4c90e621103e18be9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles using Guid(3396674253d0b0a4c90e621103e18be9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8903a968bd7ef9c902aca9d200bb03b4') in 0.024961 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.264677 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main
-  artifactKey: Guid(7877976793da9464b93d0d68983b176c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main using Guid(7877976793da9464b93d0d68983b176c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cca82f1206eb5b15407b931a719a336d') in 0.022375 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1.382299 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials
-  artifactKey: Guid(8629e63184ef0e345817145c153c4223) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials using Guid(8629e63184ef0e345817145c153c4223) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fef543a1eb7dac105e5fdc801a45f501') in 0.022666 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 2.508132 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate
-  artifactKey: Guid(6eda6521bb0efab4793d460ee19259ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate using Guid(6eda6521bb0efab4793d460ee19259ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8eb6481b48a6c967c165f467316a361a') in 0.018279 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000967 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_-.mat
-  artifactKey: Guid(ff13ff0a13b1a124dadbb7e24558f7e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_-.mat using Guid(ff13ff0a13b1a124dadbb7e24558f7e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5fb82afee073ac3a2d217b121013ec4f') in 0.869588 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000047 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_I.mat
-  artifactKey: Guid(ebefac143957203478f81c14bf50dde7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_I.mat using Guid(ebefac143957203478f81c14bf50dde7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4ca8d805633728b03ee4066bc578bd8') in 0.055011 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000373 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_E.mat
-  artifactKey: Guid(9be89021345f1d84596500ac529fcce1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_E.mat using Guid(9be89021345f1d84596500ac529fcce1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '905c85630ee8caf622b64b586c2191dd') in 0.039576 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000038 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_7.mat
-  artifactKey: Guid(756683656209264429a28f8f624dbbcb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_7.mat using Guid(756683656209264429a28f8f624dbbcb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac8b063aeab11dad9341118fa74e3177') in 0.042088 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000344 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_K.mat
-  artifactKey: Guid(e8a3cd2cf83803847bb6643a091be7b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_K.mat using Guid(e8a3cd2cf83803847bb6643a091be7b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9084791bc316d9028c6839d115d577cb') in 0.042184 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000223 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_N.mat
-  artifactKey: Guid(f82dc7374391c5147a0f008b49fe647f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_N.mat using Guid(f82dc7374391c5147a0f008b49fe647f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86e27d58aedce81879fe30898ff446fe') in 0.037129 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000046 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_5.mat
-  artifactKey: Guid(ede31eb529c1a0d49a28f8f2b3a24a02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_5.mat using Guid(ede31eb529c1a0d49a28f8f2b3a24a02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f8200c8130ffd47122f6b6e3d5dac97') in 0.032583 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000053 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_9.mat
-  artifactKey: Guid(2dfc1af2bdae8f84f88708dcc286972b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_9.mat using Guid(2dfc1af2bdae8f84f88708dcc286972b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f21c44704704990ed4deba964f1583b3') in 0.035454 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000375 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_6.mat
-  artifactKey: Guid(74cbf476563d7f148b06746c22a1d947) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_6.mat using Guid(74cbf476563d7f148b06746c22a1d947) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e0eb06411d890d7da10a1753a285c4c9') in 0.026715 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000110 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_C.mat
-  artifactKey: Guid(af041fba797db6943b51d30be8220292) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_C.mat using Guid(af041fba797db6943b51d30be8220292) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab7a39d7e96b64581c99951d20420ab8') in 0.039641 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.008833 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_2.mat
-  artifactKey: Guid(6ed8e19c9dace3249ab41fca7f75839d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_2.mat using Guid(6ed8e19c9dace3249ab41fca7f75839d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af9c62537e94c045fb75634e90871b6b') in 0.074956 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.011412 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_G.mat
-  artifactKey: Guid(7d849933796880b4eb99f301828f7c8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/Main/Materials/Numbers_License_Plate/Eu_Number_G.mat using Guid(7d849933796880b4eb99f301828f7c8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37951b3fe3c76e1f5156e400c06c1650') in 0.039493 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 18.736517 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/RMCarDemo/Prefabs/RMCarDemo_USA.prefab
-  artifactKey: Guid(dac49ae100a9e2847b512fa0fa2552c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/RMCarDemo/Prefabs/RMCarDemo_USA.prefab using Guid(dac49ae100a9e2847b512fa0fa2552c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01520b9caeff66febb8d13dd55ca6542') in 0.832047 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000371 seconds.
-  path: Assets/RealisticMobileCars - Pro 3D Models/Vehicles/RMCarDemo/Prefabs/RMCarDemoWheel.prefab
-  artifactKey: Guid(9410d0747da0cb74eb424bd252076d74) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RealisticMobileCars - Pro 3D Models/Vehicles/RMCarDemo/Prefabs/RMCarDemoWheel.prefab using Guid(9410d0747da0cb74eb424bd252076d74) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd36c9f7370479303e89aae794f00db16') in 0.053176 seconds 
 Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
 AssetImportWorker is now disconnected from the server
 Process exiting
