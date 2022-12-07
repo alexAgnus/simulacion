@@ -1,0 +1,493 @@
+Using pre-set license
+Built from '2021.3/release' branch; Version is '2021.3.12f1 (8af3c3e441b1) revision 9106371'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22000) 64bit CoreSingleLanguage' Language: 'es' Physical Memory: 15754 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity 2021.3.12f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker3
+-projectPath
+C:/Users/emili/clonar/Simulacion/Bici2
+-logFile
+Logs/AssetImportWorker3.log
+-srvPort
+64649
+Successfully changed project path to: C:/Users/emili/clonar/Simulacion/Bici2
+C:/Users/emili/clonar/Simulacion/Bici2
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Refreshing native plugins compatible for Editor in 121.97 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.3.12f1 (8af3c3e441b1)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity 2021.3.12f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/emili/clonar/Simulacion/Bici2/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Radeon RX 5500M (ID=0x7340)
+    Vendor:   ATI
+    VRAM:     4055 MB
+    Driver:   30.0.13002.23
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity 2021.3.12f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity 2021.3.12f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity 2021.3.12f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56700
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity 2021.3.12f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.004044 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 116.81 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.781 seconds
+Domain Reload Profiling:
+	ReloadAssembly (781ms)
+		BeginReloadAssembly (94ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (556ms)
+			LoadAssemblies (90ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (128ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (32ms)
+			SetupLoadedEditorAssemblies (336ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (10ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (117ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (164ms)
+				ProcessInitializeOnLoadMethodAttributes (43ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.007561 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\emili\clonar\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\emili\clonar\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 83.58 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.135 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1136ms)
+		BeginReloadAssembly (104ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (19ms)
+		EndReloadAssembly (923ms)
+			LoadAssemblies (82ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (239ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (48ms)
+			SetupLoadedEditorAssemblies (508ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (3ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (84ms)
+				BeforeProcessingInitializeOnLoad (92ms)
+				ProcessInitializeOnLoadAttributes (296ms)
+				ProcessInitializeOnLoadMethodAttributes (26ms)
+				AfterProcessingInitializeOnLoad (6ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (9ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.85 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4010 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 53 unused Assets / (0.6 MB). Loaded Objects now: 4479.
+Memory consumption went from 170.4 MB to 169.8 MB.
+Total: 3.401300 ms (FindLiveObjects: 0.319200 ms CreateObjectMapping: 0.126700 ms MarkObjects: 2.741100 ms  DeleteObjects: 0.213500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.009245 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\emili\clonar\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\emili\clonar\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.79 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.389 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1389ms)
+		BeginReloadAssembly (189ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (39ms)
+		EndReloadAssembly (1084ms)
+			LoadAssemblies (142ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (532ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (37ms)
+			SetupLoadedEditorAssemblies (386ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (11ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (68ms)
+				ProcessInitializeOnLoadAttributes (271ms)
+				ProcessInitializeOnLoadMethodAttributes (28ms)
+				AfterProcessingInitializeOnLoad (7ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.14 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3967 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 36 unused Assets / (0.6 MB). Loaded Objects now: 4482.
+Memory consumption went from 166.4 MB to 165.8 MB.
+Total: 3.690400 ms (FindLiveObjects: 0.263100 ms CreateObjectMapping: 0.236300 ms MarkObjects: 2.966500 ms  DeleteObjects: 0.223000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.009201 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\emili\clonar\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\emili\clonar\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.82 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.290 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1290ms)
+		BeginReloadAssembly (138ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (43ms)
+		EndReloadAssembly (1054ms)
+			LoadAssemblies (86ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (320ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (53ms)
+			SetupLoadedEditorAssemblies (527ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (16ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (93ms)
+				ProcessInitializeOnLoadAttributes (372ms)
+				ProcessInitializeOnLoadMethodAttributes (36ms)
+				AfterProcessingInitializeOnLoad (8ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (10ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.68 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3967 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 36 unused Assets / (0.6 MB). Loaded Objects now: 4485.
+Memory consumption went from 166.4 MB to 165.8 MB.
+Total: 3.574600 ms (FindLiveObjects: 0.273600 ms CreateObjectMapping: 0.217300 ms MarkObjects: 2.888900 ms  DeleteObjects: 0.193500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.008946 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\emili\clonar\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\emili\clonar\Simulacion\Bici2\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.06 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.305 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1306ms)
+		BeginReloadAssembly (135ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (38ms)
+		EndReloadAssembly (1070ms)
+			LoadAssemblies (93ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (321ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (54ms)
+			SetupLoadedEditorAssemblies (529ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (15ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (91ms)
+				ProcessInitializeOnLoadAttributes (376ms)
+				ProcessInitializeOnLoadMethodAttributes (35ms)
+				AfterProcessingInitializeOnLoad (8ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (10ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.93 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3967 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 36 unused Assets / (0.6 MB). Loaded Objects now: 4488.
+Memory consumption went from 166.4 MB to 165.8 MB.
+Total: 4.407200 ms (FindLiveObjects: 0.426500 ms CreateObjectMapping: 0.286200 ms MarkObjects: 3.434100 ms  DeleteObjects: 0.258900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 45260.166527 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/BicycleBodyMetal.mat
+  artifactKey: Guid(46d12750bc89c07449182d08b7aed003) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/BicycleBodyMetal.mat using Guid(46d12750bc89c07449182d08b7aed003) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7cb45f0c0f6a326ac4cabad83f7099c6') in 0.189872 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/HelmetColor.mat
+  artifactKey: Guid(868a73f110edc6a42ac637a564b98738) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/HelmetColor.mat using Guid(868a73f110edc6a42ac637a564b98738) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3c3f88b392edcc3c41ed8c31753889e') in 0.026444 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/MTBRider2Jersey.mat
+  artifactKey: Guid(7c40c82484f31a24399487f1ca6141d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/MTBRider2Jersey.mat using Guid(7c40c82484f31a24399487f1ca6141d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac561842f1ffeb3e2af14ec426bfb8b2') in 0.096699 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Offroad FTire.mat
+  artifactKey: Guid(e889a32d03986834c90b3ddfa06f3823) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Offroad FTire.mat using Guid(e889a32d03986834c90b3ddfa06f3823) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e58c338dff716a1980df9a7ee59635e8') in 0.023441 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Rubber.002.mat
+  artifactKey: Guid(825f006f98a43aa44853f9cfe5eb7d0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Rubber.002.mat using Guid(825f006f98a43aa44853f9cfe5eb7d0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d607ccc2b02d58d0334da4a1c3ca361') in 0.022046 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/BodyBMX.mat
+  artifactKey: Guid(a6100cd144e9f7a488d49dab99f3b95f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/BodyBMX.mat using Guid(a6100cd144e9f7a488d49dab99f3b95f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c83d1ba094b9ad79b3fa1a73fa6b52e6') in 0.021466 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Glasses.mat
+  artifactKey: Guid(3fbeb9a987a41db44a8c63359eee64f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Glasses.mat using Guid(3fbeb9a987a41db44a8c63359eee64f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f49e2373b80fdfe5ab1de9a3ee5149a3') in 0.020291 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/JerseyAlbedoWhite.mat
+  artifactKey: Guid(d559b553582b6b441ab4d81d281fe46f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/JerseyAlbedoWhite.mat using Guid(d559b553582b6b441ab4d81d281fe46f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '147cacbeca701e83be805139c0566427') in 0.046764 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Spokes.mat
+  artifactKey: Guid(12644a48681d36e499c63fd047e81f4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Spokes.mat using Guid(12644a48681d36e499c63fd047e81f4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78fafc353993a3a4fdc89bf2f3947967') in 0.019314 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/RubberBMX.mat
+  artifactKey: Guid(e65ce89573dca5d40a8f6e16f053c67e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/RubberBMX.mat using Guid(e65ce89573dca5d40a8f6e16f053c67e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f6b402414e50e868713ff12616bbd20') in 0.021346 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/OldBicycleLivery.mat
+  artifactKey: Guid(f68804cdec6ace34d9c7fe46bbfff371) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/OldBicycleLivery.mat using Guid(f68804cdec6ace34d9c7fe46bbfff371) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b075c12e6d4bc31d1628b8dcc1f7d7e') in 0.028054 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/OldBicycleLeather.mat
+  artifactKey: Guid(24497d70d5b5a7e4eb0cc989ea4594fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/OldBicycleLeather.mat using Guid(24497d70d5b5a7e4eb0cc989ea4594fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59ec9d2485dbf8dc79bf04b41c067e2c') in 0.027219 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Steel.mat
+  artifactKey: Guid(450ec1527bb92bb449ac2402d64a6e63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Steel.mat using Guid(450ec1527bb92bb449ac2402d64a6e63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a82c6424129c4ae7dcedff7483a826f1') in 0.018505 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Offroad RTire.mat
+  artifactKey: Guid(9ef5c32334ba1074b8d869a38c700892) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Offroad RTire.mat using Guid(9ef5c32334ba1074b8d869a38c700892) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24e35b03d693111c94bf88325abaa940') in 0.023922 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/ScooterSeat.mat
+  artifactKey: Guid(77320516a203f6c4981368433e62f17c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/ScooterSeat.mat using Guid(77320516a203f6c4981368433e62f17c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db22085403cfb478f5664104ae6281a4') in 0.022088 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/RoadCycleLivery.mat
+  artifactKey: Guid(3b5646e2ac3c39f49b4352d375b7f474) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/RoadCycleLivery.mat using Guid(3b5646e2ac3c39f49b4352d375b7f474) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2dbf319deb07af9e8aff25f30b11826') in 0.020290 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Tire.mat
+  artifactKey: Guid(e5237f70707de0c47964b5d45d5eff8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Tire.mat using Guid(e5237f70707de0c47964b5d45d5eff8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a9df17c552bfba91af358688020d273') in 0.022018 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Tread.mat
+  artifactKey: Guid(5bb643f5015ab4647a3f6d0b19e07fc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Tread.mat using Guid(5bb643f5015ab4647a3f6d0b19e07fc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78a6035c4ad8b3e7a3e528cd8262240b') in 0.023326 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/RTyreLivery.mat
+  artifactKey: Guid(453003f9ca94c234887a4f607fdc1f8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/RTyreLivery.mat using Guid(453003f9ca94c234887a4f607fdc1f8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7bdc220a6598dc5cb270c8d9081e8b7') in 0.021728 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Metal.mat
+  artifactKey: Guid(200d37e9fc9d25647a431ca95e214d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Metal.mat using Guid(200d37e9fc9d25647a431ca95e214d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bef05d243b660cdb690f403db97d6aa') in 0.022113 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Strap.mat
+  artifactKey: Guid(11cabaa60f45491408b1330973392fd2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Strap.mat using Guid(11cabaa60f45491408b1330973392fd2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '633a97b3472c4cfb9fa980bea9bdfb3b') in 0.018676 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/TricycleLivery.mat
+  artifactKey: Guid(a4b89e75ff2e43040af4d64198b82313) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/TricycleLivery.mat using Guid(a4b89e75ff2e43040af4d64198b82313) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a268d4500b5acbeebcc6aa7a368f79a7') in 0.023411 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/OldBicycleWheels.mat
+  artifactKey: Guid(4c4315267c282e8448fbd1016c00a73d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/OldBicycleWheels.mat using Guid(4c4315267c282e8448fbd1016c00a73d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '935fd87336a7e7afab32151ba1312a36') in 0.028994 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/ScooterWheels.mat
+  artifactKey: Guid(20c266897707ed8499efdf1abe350244) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/ScooterWheels.mat using Guid(20c266897707ed8499efdf1abe350244) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '154094bc57be8257f2325e2f07bbbc63') in 0.026193 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/phong1.mat
+  artifactKey: Guid(e10ce8af60cde0d42a6cb076b94cab2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/phong1.mat using Guid(e10ce8af60cde0d42a6cb076b94cab2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ba599d5a6c3bd2adf90e111118bf6ad8') in 0.019296 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/Secondary.mat
+  artifactKey: Guid(b3e0c36a91accbb46b3f7ee963454673) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/Secondary.mat using Guid(b3e0c36a91accbb46b3f7ee963454673) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a454773bd3ce9e33079a14d950c9cc55') in 0.018864 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Simple Bicycle Physics/Materials/BlackBMX.mat
+  artifactKey: Guid(e397127dde1c24840916a4c5899efd43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Simple Bicycle Physics/Materials/BlackBMX.mat using Guid(e397127dde1c24840916a4c5899efd43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5fe29a5df18456908f3c3e79930b6da4') in 0.023006 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
