@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts semaforo\semaforo_2.cs" />
     <Compile Include="Assets\Simple Bicycle Physics\Scripts\PerfectMouseLook.cs" />
     <Compile Include="Assets\Simple Bicycle Physics\Scripts\BicycleCamera.cs" />
+    <Compile Include="Assets\Scripts bus\AIscript.cs" />
     <Compile Include="Assets\Simple Bicycle Physics\Scripts\RagdollJointImitation.cs" />
     <Compile Include="Assets\Simple Bicycle Physics\Scripts\MobileButtonHandler.cs" />
   </ItemGroup>
