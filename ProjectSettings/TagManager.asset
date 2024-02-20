@@ -8,6 +8,8 @@ TagManager:
   - Node
   - Road
   - Cell
+  - TrafficLight
+  - Traffic
   layers:
   - Default
   - TransparentFX
