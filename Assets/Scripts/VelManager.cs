@@ -5,6 +5,8 @@ using UnityEngine;
 public class VelManager : MonoBehaviour
 {
     public GameObject VelocimeterObj;
+    public Rigidbody bikeRB;
+    
     private Velocimeter velocimeter;
 
     private float speed = 0; 
@@ -17,22 +19,6 @@ public class VelManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            speed += acceleration;
-        }else{
-            speed -= acceleration / 2; 
-
-        }
-        Debug.Log(speed);
-
-        if(speed <= 0){
-            speed = 0; 
-        }
-        if(speed >= velocimeter.MaxSpeed){
-            speed = velocimeter.MaxSpeed;
-        }
-        velocimeter.SetVelocityTo(speed);
+        velocimeter.SetVelocityTo(bikeRB.velocity.magnitude);
     }
 }

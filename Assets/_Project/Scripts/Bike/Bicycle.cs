@@ -11,6 +11,12 @@ public class Bicycle : MonoBehaviour
     [SerializeField]
     private WheelCollider rearWheel;
     Rigidbody ms_Rigidbody;
+    [SerializeField] 
+    //10 m/s = 36 km/h
+    private float speedLimit = 10;
+
+    [SerializeField] 
+    private float torqueAccel;
  
     float rbVelocityMagnitude;
     float horizontalInput;
@@ -52,9 +58,10 @@ public class Bicycle : MonoBehaviour
  
         //motorTorque
         if (medRPM > 0) {
-            rearWheel.motorTorque = verticalInput * ms_Rigidbody.mass * 4.0f;
+            if (ms_Rigidbody.velocity.magnitude * Mathf.Sign(verticalInput) < speedLimit)
+                rearWheel.motorTorque = verticalInput * ms_Rigidbody.mass * torqueAccel;
         } else {
-            rearWheel.motorTorque = verticalInput * ms_Rigidbody.mass * 1.5f;
+            rearWheel.motorTorque = verticalInput * ms_Rigidbody.mass * torqueAccel/2.0f;
         }
  
         //steerAngle
