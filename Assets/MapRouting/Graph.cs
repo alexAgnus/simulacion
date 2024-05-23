@@ -6,16 +6,22 @@ public class Graph : MonoBehaviour
 {
     
     [SerializeField]
-    private Node start;
+    public Node start;
     [SerializeField]
     private Node end;
 
-    List<Node> path;
-
+    public List<Node> path;
     
     void Start()
     {
+        Arrow arrow = FindObjectOfType<Arrow>();
         path = GetRoute(new List<Node>(), start);
+
+        Node newPlayerObject = path[0];
+        if (newPlayerObject != null && arrow != null)
+        {
+            arrow.nodepath = newPlayerObject.transform;
+        }
 
         for(int i = 0; i < path.Count; i++){
             path[i].changeStatus("path");
@@ -108,7 +114,7 @@ public class Graph : MonoBehaviour
     {
         start = newStart;
         path = GetRoute(new List<Node>(), start);
-
+        Arrow arrow = FindObjectOfType<Arrow>();
         for (int i = 0; i < path.Count; i++)
         {
             path[i].changeStatus("path");
@@ -116,6 +122,12 @@ public class Graph : MonoBehaviour
         if (start.name == end.name)
         {
             Debug.Log("Llegaste a la meta");
+        }else{
+            Node newPlayerObject = path[1];
+            if (newPlayerObject != null && arrow != null)
+            {
+                arrow.nodepath = newPlayerObject.transform;
+            }
         }
         start.changeStatus("start");
         end.changeStatus("end");
