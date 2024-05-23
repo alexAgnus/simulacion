@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Consulted MS Motorcycle test - Marcos Schultz (www.schultzgames.com)
+using UnityEngine.XR;
+
 [RequireComponent(typeof(Rigidbody))]
 public class Bicycle : MonoBehaviour
 {
@@ -10,95 +11,102 @@ public class Bicycle : MonoBehaviour
     private WheelCollider frontWheel;
     [SerializeField]
     private WheelCollider rearWheel;
-    Rigidbody ms_Rigidbody;
+    private Rigidbody ms_Rigidbody;
+    
     [SerializeField] 
-    //10 m/s = 36 km/h
-    private float speedLimit = 10;
-
+    private float speedLimit = 10; // 10 m/s = 36 km/h
     [SerializeField] 
     private float torqueAccel;
- 
-    float rbVelocityMagnitude;
-    float horizontalInput;
-    float verticalInput;
-    float medRPM;
+
+    private float rbVelocityMagnitude;
+    private float horizontalInput;
+    private float verticalInput;
+    private float medRPM;
 
     private void Awake()
     {
         transform.rotation = Quaternion.identity;
-        ms_Rigidbody = GetComponent<Rigidbody> ();
+        ms_Rigidbody = GetComponent<Rigidbody>();
         ms_Rigidbody.mass = 400;
         ms_Rigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
         ms_Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-        
-        //centerOfMass
-        var centerOfmassOBJ = new GameObject ("centerOfmass");
+
+        // centerOfMass
+        var centerOfmassOBJ = new GameObject("centerOfMass");
         centerOfmassOBJ.transform.parent = transform;
-        centerOfmassOBJ.transform.localPosition = new Vector3 (0.0f, -0.3f, 0.0f);
+        centerOfmassOBJ.transform.localPosition = new Vector3(0.0f, -0.3f, 0.0f);
         ms_Rigidbody.centerOfMass = transform.InverseTransformPoint(centerOfmassOBJ.transform.position);
     }
-    
-    void OnEnable(){
-        WheelCollider WheelColliders = GetComponentInChildren<WheelCollider>();
-        WheelColliders.ConfigureVehicleSubsteps(1000, 30, 30);
+
+    void OnEnable()
+    {
+        WheelCollider wheelColliders = GetComponentInChildren<WheelCollider>();
+        wheelColliders.ConfigureVehicleSubsteps(1000, 30, 30);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        // Inicialización opcional
     }
 
     private void FixedUpdate()
     {
-        horizontalInput = Input.GetAxis ("Horizontal");
-        verticalInput = Input.GetAxis ("Vertical");
+        horizontalInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x;
+        verticalInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
         medRPM = (frontWheel.rpm + rearWheel.rpm) / 2;
         rbVelocityMagnitude = ms_Rigidbody.velocity.magnitude;
- 
-        //motorTorque
-        if (medRPM > 0) {
+
+        // motorTorque
+        if (medRPM > 0) 
+        {
             if (ms_Rigidbody.velocity.magnitude * Mathf.Sign(verticalInput) < speedLimit)
                 rearWheel.motorTorque = verticalInput * ms_Rigidbody.mass * torqueAccel;
-        } else {
-            rearWheel.motorTorque = verticalInput * ms_Rigidbody.mass * torqueAccel/2.0f;
+        } 
+        else 
+        {
+            rearWheel.motorTorque = verticalInput * ms_Rigidbody.mass * torqueAccel / 2.0f;
         }
- 
-        //steerAngle
+
+        // steerAngle
         float nextAngle = horizontalInput * 35.0f;
-        frontWheel.steerAngle = Mathf.Lerp (frontWheel.steerAngle, nextAngle, 0.125f);
- 
- 
-        if(Mathf.Abs(rearWheel.rpm) > 10000){
+        frontWheel.steerAngle = Mathf.Lerp(frontWheel.steerAngle, nextAngle, 0.125f);
+
+        if (Mathf.Abs(rearWheel.rpm) > 10000)
+        {
             rearWheel.motorTorque = 0.0f;
             rearWheel.brakeTorque = ms_Rigidbody.mass * 5;
         }
-        //
-        if (rbVelocityMagnitude < 1.0f && Mathf.Abs (verticalInput) < 0.1f) {
+
+        if (rbVelocityMagnitude < 1.0f && Mathf.Abs(verticalInput) < 0.1f) 
+        {
             rearWheel.brakeTorque = frontWheel.brakeTorque = ms_Rigidbody.mass * 2.0f;
-        } else {
+        } 
+        else 
+        {
             rearWheel.brakeTorque = frontWheel.brakeTorque = 0.0f;
         }
-        //
+
         Stabilizer();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // Actualización opcional
     }
-    
-    void Stabilizer(){
-        Vector3 axisFromRotate = Vector3.Cross (transform.up, Vector3.up);
+
+    private void Stabilizer()
+    {
+        Vector3 axisFromRotate = Vector3.Cross(transform.up, Vector3.up);
         Vector3 torqueForce = axisFromRotate.normalized * axisFromRotate.magnitude * 50;
         torqueForce.x = torqueForce.x * 0.4f;
         torqueForce -= ms_Rigidbody.angularVelocity;
-        ms_Rigidbody.AddTorque (torqueForce * ms_Rigidbody.mass * 0.02f, ForceMode.Impulse);
- 
-        float rpmSign = Mathf.Sign (medRPM) * 0.02f;
-        if (rbVelocityMagnitude > 1.0f && frontWheel.isGrounded && rearWheel.isGrounded) {
-            ms_Rigidbody.angularVelocity += new Vector3 (0, horizontalInput * rpmSign, 0);
+        ms_Rigidbody.AddTorque(torqueForce * ms_Rigidbody.mass * 0.02f, ForceMode.Impulse);
+
+        float rpmSign = Mathf.Sign(medRPM) * 0.02f;
+        if (rbVelocityMagnitude > 1.0f && frontWheel.isGrounded && rearWheel.isGrounded) 
+        {
+            ms_Rigidbody.angularVelocity += new Vector3(0, horizontalInput * rpmSign, 0);
         }
     }
 }
+
