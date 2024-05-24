@@ -72,4 +72,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # FFMPEG
-*/FFMPEG/
+/Assets/_Project/Scripts/Log/Video/FFMPEG

@@ -1,52 +1,152 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.ComponentModel;
 using System.IO;
-using System.Globalization;
 using System.Text;
-using System.Diagnostics;
 
 public class Log : MonoBehaviour
 {
     public Rigidbody rb;
-    public Vector3 collisionBoxSize;
-    public Vector3 collisionBoxRotation;
     public float dangerRadius;
     public float warningRadius;
-    public float verticalRaySize;
-    public float horizontalRaySize;
+    [Range(0.1f, 2.5f)] public float logWait;
     public LayerMask trafficLayer;
-    TextWriter file_Record;
-    string nameFile;
-    Stopwatch stopwatch = new Stopwatch();
-    void Start()
-    {
-        stopwatch.Start();
-        rb = GetComponent<Rigidbody>();
-        string Dir = Directory.GetCurrentDirectory();
-        string currentDirectory= Dir + Path.DirectorySeparatorChar + "Assets" + Path.DirectorySeparatorChar + "_Project" + Path.DirectorySeparatorChar + "Logs" + Path.DirectorySeparatorChar;
-        DateTime currentDate = DateTime.Now;
-        int day = currentDate.Day;
-        int month = currentDate.Month;
-        int year = currentDate.Year;
-        int hour = currentDate.Hour;
-        int minute = currentDate.Minute;
-        int seconds = currentDate.Second;
-        string nameRecord= "Record_" + day + "_" + month + "_" +  year + "_" +  hour + "-" + minute + "-" + seconds + ".csv";
 
-        nameFile= currentDirectory + nameRecord;
-        file_Record= new StreamWriter(nameFile, true);
-        string header = "Tiempo_Ejecucion(H:M:S),Riesgo_De_Accidente,Nombre_Vehiculo,Distancia,Posicion,Del,Vehiculo,Velocidad_Vehiculo,Posicion,De_La,Bicicleta,Velocidad_Bicicleta";
-        string header2 =",,,,X,Y,Z,,X,Y,Z,";
-        file_Record.WriteLine(header); 
-        file_Record.WriteLine(header2); 
+    [NonSerialized] public static string logCreationDate;
+    private string _logOutputPath;
+    private StreamWriter _logger;
+    private Coroutine _coroutine;
+    private float _startTime;
+    
+    private void Awake()
+    {
+        logCreationDate = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+        _logOutputPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            $"My Games/Bike AR/Logs/Log_{logCreationDate}");
+        CreateCSV();
     }
 
-    void Update()
+    void Start()
     {
-        CheckCollisions();
+        rb = GetComponent<Rigidbody>();
+        _startTime = Time.realtimeSinceStartup;
+        _coroutine = StartCoroutine(CheckCollisions());
+    }
+
+    private void CreateCSV()
+    {
+        if (!Directory.Exists(_logOutputPath))
+        {
+            Directory.CreateDirectory(_logOutputPath);
+        }
+
+        _logger = new StreamWriter($"{_logOutputPath}/{logCreationDate}.csv", true, Encoding.UTF8);
+        string header =
+            "Tiempo_Ejecucion(HH:mm:ss:ms),Riesgo_De_Accidente,Distancia,Nombre_Vehiculo,Posicion_Vehiculo,Velocidad_Vehiculo,Posicion_Bicicleta,Velocidad_Bicicleta";
+        _logger.WriteLine(header);
+    }
+    
+    private float Velocity(Rigidbody rbVehicle)
+    {
+        float speed = rbVehicle.velocity.magnitude;
+        float direction = Vector3.Dot(rbVehicle.velocity.normalized, transform.forward);
+
+        return 3.6f * (direction >= 0 ? speed : -speed);
+    }
+
+    private IEnumerator CheckCollisions()
+    {
+        while (true)
+        {
+            string lineRecord;
+            float distance;
+            string vehicleName;
+            Rigidbody VehicleRB;
+            string vehiclePosition;
+            float vehicleSpeed;
+            string bikePosition;
+            float bikeSpeed;
+            string accidentRisk;
+
+            Collider[] trafficObjects = Physics.OverlapSphere(transform.position, warningRadius, trafficLayer);
+            
+            if (trafficObjects.Length == 0)
+            {
+                bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
+                bikeSpeed = Velocity(rb);
+                TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup - _startTime);
+                lineRecord = $@"{elapsedTime:hh\:mm\:ss\:fff},,,,,,{bikePosition},{bikeSpeed:F8}";
+                _logger.WriteLine(lineRecord);
+            }
+            else
+            {
+                foreach (Collider trafficObject in trafficObjects)
+                {
+                    if (!trafficObject.CompareTag("Traffic")) continue;
+
+                    if (!Physics.Raycast(transform.position, trafficObject.transform.position - transform.position,
+                            out var hit, warningRadius, trafficLayer)) continue;
+
+                    distance = hit.distance;
+                    vehicleName = trafficObject.transform.parent.parent.parent.gameObject.name;
+                    VehicleRB = trafficObject.attachedRigidbody;
+                    vehiclePosition = $"{VehicleRB.position.x:F8}/{VehicleRB.position.y:F8}/{VehicleRB.position.z:F8}";
+                    vehicleSpeed = Velocity(VehicleRB);
+                    bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
+                    bikeSpeed = Velocity(rb);
+                    accidentRisk = dangerRadius < distance && distance <= warningRadius ? "Bajo" : "Alto";
+                    TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup - _startTime);
+                    lineRecord =
+                        $@"{elapsedTime:hh\:mm\:ss\:fff},{accidentRisk},{distance:F8},{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
+
+                    _logger.WriteLine(lineRecord);
+                }
+            }
+            yield return new WaitForSeconds(logWait);
+        }
+
+        yield return null;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (_logger != null && other.collider.CompareTag("Traffic"))
+        {
+            string vehicleName = other.gameObject.name;
+            Rigidbody VehicleRB = other.collider.attachedRigidbody;
+            string vehiclePosition = $"{VehicleRB.position.x:F8}/{VehicleRB.position.y:F8}/{VehicleRB.position.z:F8}";
+            float vehicleSpeed = Velocity(VehicleRB);
+            string bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
+            float bikeSpeed = Velocity(rb);
+            TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup - _startTime);
+            string lineRecord =
+                $@"{elapsedTime:hh\:mm\:ss\:fff},Colisión,0,{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
+            _logger.WriteLine(lineRecord);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _logger?.Close();
+    }
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (!pauseStatus && _coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            _logger?.Close();
+        }
+        else
+        {
+            _logger ??= new StreamWriter($"{_logOutputPath}/{logCreationDate}.csv", true);
+            _coroutine = StartCoroutine(CheckCollisions());
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        _logger?.Close();
     }
 
     private void OnDrawGizmos()
@@ -56,54 +156,5 @@ public class Log : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(rb.position, dangerRadius);
-
-        Gizmos.color = Color.white;
-        Gizmos.matrix = Matrix4x4.TRS(rb.position, Quaternion.Euler(collisionBoxRotation), collisionBoxSize);
-        Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
     }
-    private void CheckCollisions()
-    {
-        Collider[] trafficObjects = Physics.OverlapSphere(transform.position, warningRadius, trafficLayer);
-
-        foreach (Collider trafficObject in trafficObjects)
-        {
-            Vector3 directionToObject = trafficObject.transform.position - transform.position;
-            RaycastHit hit;
-            Vector3 bikePosition = rb.position;
-
-            if (Physics.BoxCast(transform.position, transform.lossyScale / 2, directionToObject, out hit, Quaternion.identity, directionToObject.magnitude, trafficLayer))
-            {
-                if (hit.collider == trafficObject && trafficObject.CompareTag("Traffic"))
-                {
-                    float distance = hit.distance;
-                    Vector3 vehiclePosition = hit.point;
-                    string sedanName = trafficObject.transform.parent.parent.parent.gameObject.name;
-
-                    if (distance <= dangerRadius && distance > Mathf.Max(collisionBoxSize.x, collisionBoxSize.y, collisionBoxSize.z) / 3f)
-                    {
-                        string records = $"{stopwatch.Elapsed},Alto,{sedanName},{distance:F4},{vehiclePosition.x:F2},{vehiclePosition.y:F2},{vehiclePosition.z:F2},{trafficObject.attachedRigidbody.velocity.magnitude:F2},{bikePosition.x:F2},{bikePosition.y:F2},{bikePosition.z:F2},{GetComponent<Rigidbody>().velocity.magnitude:F2}";
-                        file_Record.WriteLine(records);
-                    }
-                    else if (distance <= warningRadius && distance > dangerRadius)
-                    {
-                        string records = $"{stopwatch.Elapsed},Bajo,{sedanName},{distance:F4},{vehiclePosition.x:F2},{vehiclePosition.y:F2},{vehiclePosition.z:F2},{trafficObject.attachedRigidbody.velocity.magnitude:F2},{bikePosition.x:F2},{bikePosition.y:F2},{bikePosition.z:F2},{GetComponent<Rigidbody>().velocity.magnitude:F2}";
-                        file_Record.WriteLine(records);
-                    }
-                    else if (distance <= Mathf.Max(collisionBoxSize.x, collisionBoxSize.y, collisionBoxSize.z) / 3f)
-                    {
-                        string records = $"{stopwatch.Elapsed},Colision,{sedanName},{distance:F4},{vehiclePosition.x:F2},{vehiclePosition.y:F2},{vehiclePosition.z:F2},{trafficObject.attachedRigidbody.velocity.magnitude:F2},{bikePosition.x:F2},{bikePosition.y:F2},{bikePosition.z:F2},{GetComponent<Rigidbody>().velocity.magnitude:F2}";
-                        file_Record.WriteLine(records);
-                    }
-                }
-            }
-        }
-    }
-
-    void OnApplicationQuit()
-    {
-        file_Record.Close();
-        stopwatch.Stop();
-        stopwatch.Reset();
-    }
-
 }
