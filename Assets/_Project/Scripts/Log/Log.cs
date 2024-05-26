@@ -13,16 +13,14 @@ public class Log : MonoBehaviour
     public LayerMask trafficLayer;
 
     [NonSerialized] public static string logCreationDate;
-    private string _logOutputPath;
+    [NonSerialized] public static string logOutputPath;
     private StreamWriter _logger;
     private Coroutine _coroutine;
     private float _startTime;
-    
+
     private void Awake()
     {
         logCreationDate = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-        _logOutputPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            $"My Games/Bike AR/Logs/Log_{logCreationDate}");
         CreateCSV();
     }
 
@@ -35,17 +33,33 @@ public class Log : MonoBehaviour
 
     private void CreateCSV()
     {
-        if (!Directory.Exists(_logOutputPath))
+#if !UNITY_EDITOR && UNITY_ANDROID
+        using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
         {
-            Directory.CreateDirectory(_logOutputPath);
+            AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            AndroidJavaObject filesDir = currentActivity.Call<AndroidJavaObject>("getExternalFilesDir", "Documents");
+            string androidPath = filesDir.Call<string>("getAbsolutePath");
+            
+            logOutputPath = Path.Combine(androidPath, "Bike AR\\Logs");
+            if (!Directory.Exists(logOutputPath))
+            {
+                Directory.CreateDirectory(logOutputPath);
+            }
         }
-
-        _logger = new StreamWriter($"{_logOutputPath}/{logCreationDate}.csv", true, Encoding.UTF8);
+#elif UNITY_EDITOR
+        logOutputPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            $"My Games\\Bike AR\\Logs\\Log_{logCreationDate}");
+        if (!Directory.Exists(logOutputPath))
+        {
+            Directory.CreateDirectory(logOutputPath);
+        }
+#endif
+        _logger = new StreamWriter($"{logOutputPath}\\{logCreationDate}.csv", true, Encoding.UTF8);
         string header =
-            "Tiempo_Ejecucion(HH:mm:ss:ms),Riesgo_De_Accidente,Distancia,Nombre_Vehiculo,Posicion_Vehiculo,Velocidad_Vehiculo,Posicion_Bicicleta,Velocidad_Bicicleta";
+            "Tiempo_Ejecucion(HH:mm:ss:fff),Riesgo_De_Accidente,Distancia,Nombre_Vehiculo,Posicion_Vehiculo,Velocidad_Vehiculo,Posicion_Bicicleta,Velocidad_Bicicleta";
         _logger.WriteLine(header);
     }
-    
+
     private float Velocity(Rigidbody rbVehicle)
     {
         float speed = rbVehicle.velocity.magnitude;
@@ -69,7 +83,7 @@ public class Log : MonoBehaviour
             string accidentRisk;
 
             Collider[] trafficObjects = Physics.OverlapSphere(transform.position, warningRadius, trafficLayer);
-            
+
             if (trafficObjects.Length == 0)
             {
                 bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
@@ -82,7 +96,8 @@ public class Log : MonoBehaviour
             {
                 foreach (Collider trafficObject in trafficObjects)
                 {
-                    if (!trafficObject.CompareTag("Traffic")) continue;
+                    Debug.Log($"Collider Name: {trafficObject.name}");
+                    if (trafficObject.name != "BodyCollider") continue;
 
                     if (!Physics.Raycast(transform.position, trafficObject.transform.position - transform.position,
                             out var hit, warningRadius, trafficLayer)) continue;
@@ -102,6 +117,7 @@ public class Log : MonoBehaviour
                     _logger.WriteLine(lineRecord);
                 }
             }
+
             yield return new WaitForSeconds(logWait);
         }
 
@@ -110,7 +126,7 @@ public class Log : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (_logger != null && other.collider.CompareTag("Traffic"))
+        if (_logger != null && other.collider.name == "BodyCollider")
         {
             string vehicleName = other.gameObject.name;
             Rigidbody VehicleRB = other.collider.attachedRigidbody;
@@ -139,14 +155,9 @@ public class Log : MonoBehaviour
         }
         else
         {
-            _logger ??= new StreamWriter($"{_logOutputPath}/{logCreationDate}.csv", true);
+            _logger ??= new StreamWriter($"{logOutputPath}\\{logCreationDate}.csv", true);
             _coroutine = StartCoroutine(CheckCollisions());
         }
-    }
-
-    private void OnApplicationQuit()
-    {
-        _logger?.Close();
     }
 
     private void OnDrawGizmos()
