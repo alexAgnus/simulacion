@@ -1,108 +1,114 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using TMPro;
+
 
 public class Graph : MonoBehaviour
 {
     
     [SerializeField]
     public Node start;
-    [SerializeField]
     private Node end;
 
-    public List<Node> path;
+    private List<Node> path;
+    private int num_de_metas = 0;
+    
+    private Node[] allNodes;
+    public GameObject arrowGoal;
+    public TMP_Text goalText;
     
     void Start()
     {
+        allNodes = GameObject.FindGameObjectsWithTag("NodeDestino").Select(go => go.GetComponent<Node>()).ToArray();
+        SelectNewEndNode();
+        PlayGoalAnimation(); 
+        goalText.text="Sigue la flecha";
         Arrow arrow = FindObjectOfType<Arrow>();
-        path = GetRoute(new List<Node>(), start);
-
+        path = AStarPathfinding(start, end);
         Node newPlayerObject = path[0];
         if (newPlayerObject != null && arrow != null)
         {
             arrow.nodepath = newPlayerObject.transform;
         }
 
-        for(int i = 0; i < path.Count; i++){
-            path[i].changeStatus("path");
+        foreach (Node node in path)
+        {
+            node.changeStatus("path");
         }
 
         start.changeStatus("start");
         end.changeStatus("end");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
     }
 
-    List<Node> GetRoute(List<Node> visited, Node point)
+    List<Node> AStarPathfinding(Node start, Node goal)
     {
-        List<Node> route = new List<Node>();
-        List<Node> newVisited = new List<Node>(visited);
-        route.Add(point);
-        if (point == end)
+        List<Node> openSet = new List<Node>();
+        HashSet<Node> closedSet = new HashSet<Node>();
+        Dictionary<Node, Node> cameFrom = new Dictionary<Node, Node>();
+        Dictionary<Node, float> gScore = new Dictionary<Node, float>();
+        Dictionary<Node, float> fScore = new Dictionary<Node, float>();
+        openSet.Add(start);
+        gScore[start] = 0;
+        fScore[start] = HeuristicCostEstimate(start, goal);
+        while (openSet.Count > 0)
         {
-            return route;
-        }
-        newVisited.Add(point);
-
-        bool stuck = true;
-        float minDis = -1.0f;
-
-        float distance;
-
-        List<Node> nextPath = new List<Node>();
-        for (int i = 0; i < point.Neighbors.Length; i++)
-        {
-            Node next = point.Neighbors[i];
-
-            if (!visited.Contains(next))
+            Node current = openSet.OrderBy(node => fScore.ContainsKey(node) ? fScore[node] : float.MaxValue).First();
+            if (current == goal)
             {
-                stuck = false;
-                List<Node> p = GetRoute(newVisited, next);
-
-                if (p.Count <= 0) continue;
-
-                distance = pathDistance(p);
-                if (minDis == -1 || distance < minDis)
+                return ReconstructPath(cameFrom, current);
+            }
+            openSet.Remove(current);
+            closedSet.Add(current);
+            foreach (Node neighbor in current.Neighbors)
+            {
+                if (closedSet.Contains(neighbor))
                 {
-                    nextPath = p;
-                    minDis = distance;
+                    continue;
                 }
+                float tentative_gScore = gScore[current] + Vector3.Distance(current.getPosition(), neighbor.getPosition());
+                if (!openSet.Contains(neighbor))
+                {
+                    openSet.Add(neighbor);
+                }
+                else if (tentative_gScore >= gScore[neighbor])
+                {
+                    continue;
+                }
+                cameFrom[neighbor] = current;
+                gScore[neighbor] = tentative_gScore;
+                fScore[neighbor] = gScore[neighbor] + HeuristicCostEstimate(neighbor, goal);
             }
         }
-
-        if (stuck)
-            return new List<Node>();
-
-        if (nextPath.Count <= 0)
-        {
-            return new List<Node>();
-        }
-
-        for (int i = 0; i < nextPath.Count; i++)
-        {
-            route.Add(nextPath[i]);
-        }
-        return route;
+        return new List<Node>(); 
     }
 
-    float pathDistance(List<Node> route){
-        float sum = 0.0f;
-        for(int i = 1; i < route.Count; i++){
-            Vector3 distance = route[i].getPosition() - route[i -1].getPosition();
-            sum += distance.magnitude;
-        }
+    float HeuristicCostEstimate(Node node, Node goal)
+    {
+        return Vector3.Distance(node.getPosition(), goal.getPosition());
+    }
 
-        return sum;
+    List<Node> ReconstructPath(Dictionary<Node, Node> cameFrom, Node current)
+    {
+        List<Node> totalPath = new List<Node> { current };
+        while (cameFrom.ContainsKey(current))
+        {
+            current = cameFrom[current];
+            totalPath.Insert(0, current);
+        }
+        return totalPath;
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-
         for (int i = 0; i < path.Count - 1; i++)
         {
             Vector3 dir = path[i + 1].getPosition() - path[i].getPosition();
@@ -113,23 +119,72 @@ public class Graph : MonoBehaviour
     public void RecalculateRoute(Node newStart)
     {
         start = newStart;
-        path = GetRoute(new List<Node>(), start);
+        path = AStarPathfinding(start, end);
         Arrow arrow = FindObjectOfType<Arrow>();
-        for (int i = 0; i < path.Count; i++)
+        foreach (Node node in path)
         {
-            path[i].changeStatus("path");
+            node.changeStatus("path");
         }
         if (start.name == end.name)
         {
-            Debug.Log("Llegaste a la meta");
-        }else{
+            num_de_metas+=1;
+            if (num_de_metas == 3){
+                goalText.text="Felicidades!! ya terminaste \ntodo el recorrido :)";
+                arrowGoal.SetActive(false);
+            }else{
+                goalText.text=$"Llegaste al destino: {num_de_metas}\nSigue la flecha";
+                SelectNewEndNode();
+                PlayGoalAnimation();
+                Node newPlayerObject = path[1];
+                if (newPlayerObject != null && arrow != null)
+                {
+                    arrow.nodepath = newPlayerObject.transform;
+                }
+            }
+        }
+        else
+        {
             Node newPlayerObject = path[1];
             if (newPlayerObject != null && arrow != null)
             {
                 arrow.nodepath = newPlayerObject.transform;
             }
+            goalText.text="Sigue la flecha";
         }
         start.changeStatus("start");
         end.changeStatus("end");
     }
+
+    private void SelectNewEndNode()
+    {
+        if (allNodes.Length > 0)
+        {
+            Node newEnd;
+            do
+            {
+                newEnd = allNodes[Random.Range(0, allNodes.Length)];
+            } while (newEnd == end); // Ensure the new end node is different from the current end node
+            end = newEnd;
+            path = AStarPathfinding(start, end);
+            foreach (Node node in path)
+            {
+                node.changeStatus("path");
+            }
+            end.changeStatus("end");
+            Debug.Log("Nueva meta establecida: " + end.name);
+        }
+    }
+
+    private void PlayGoalAnimation()
+    {
+        Animator arrow_ani = arrowGoal.GetComponent<Animator>();
+        arrow_ani.Play("Goal");
+        Vector3 sourcePosition = end.transform.position;
+        sourcePosition.y += 1.0f;
+        arrowGoal.transform.position = sourcePosition;
+    }
+
+    
+
 }
+

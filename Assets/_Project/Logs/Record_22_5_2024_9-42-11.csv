@@ -1,9 +1,0 @@
-Tiempo_Ejecucion(H:M:S),Riesgo_De_Accidente,Nombre_Vehiculo,Distancia,Posicion,Del,Vehiculo,Velocidad_Vehiculo,Posicion,De_La,Bicicleta,Velocidad_Bicicleta
-,,,,X,Y,Z,,X,Y,Z,
-00:00:21.2415978,Bajo,SmallSedanWhite(Clone)7,2.8820,701.76,7.06,583.41,2.72,698.48,6.72,582.13,8.64
-00:00:21.3755040,Bajo,SmallSedanWhite(Clone)7,2.9595,702.13,7.06,583.28,2.71,699.07,6.72,581.27,8.60
-00:00:21.4430172,Bajo,SmallSedanWhite(Clone)7,3.0127,702.23,7.05,583.27,2.76,699.49,6.72,580.74,8.52
-00:00:21.6140081,Bajo,SmallSedanWhite(Clone)7,3.2808,702.42,7.24,583.20,2.76,700.45,6.72,579.80,8.48
-00:00:21.7109823,Bajo,SmallSedanWhite(Clone)7,3.5492,702.50,7.24,583.15,2.74,701.10,6.71,579.26,8.50
-00:00:21.8113895,Bajo,SmallSedanWhite(Clone)7,3.8911,702.60,7.04,583.08,2.73,701.78,6.71,578.76,8.53
-00:00:21.9234802,Bajo,SmallSedanWhite(Clone)7,4.2750,702.73,7.05,582.96,2.78,702.48,6.71,578.27,8.58
