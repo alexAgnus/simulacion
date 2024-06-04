@@ -38,17 +38,16 @@ public class VideoLogRecorder : MonoBehaviour
     {
         string framesPath = Path.Combine(_logOutputPath, "Frames");
         if (!Directory.Exists(framesPath))
-        {
+        {   
             Directory.CreateDirectory(framesPath);
         }
         float frameInterval = 1 / framerate;
         int frameCount = 0;
         while (true)
         {
-            yield return new WaitForEndOfFrame();
             ScreenCapture.CaptureScreenshot(Path.Combine(framesPath, $"Frame_{frameCount:D08}.png"));
             frameCount++;
-            yield return new WaitForSeconds(frameInterval);
+            yield return new WaitForSecondsRealtime(frameInterval);
         }
     }
 
@@ -102,7 +101,7 @@ public class VideoLogRecorder : MonoBehaviour
     {
         string ffmpegCommand = $"-framerate {framerate} -i \"{_logOutputPath}\\Frames\\Frame_%08d.png\" -c:v libx264 -pix_fmt yuv420p \"{_logOutputPath}\\Log_{_logCreationDate}.mp4\"";
         RunFFmpegCommand(ffmpegCommand);
-        Directory.Delete($"{_logOutputPath}/Frames", true);
+        Directory.Delete($"{_logOutputPath}\\Frames", true);
     }
 
     private void OnDestroy()
