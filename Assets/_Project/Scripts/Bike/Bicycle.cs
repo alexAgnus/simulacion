@@ -51,8 +51,8 @@ public class Bicycle : MonoBehaviour
 
     private void FixedUpdate()
     {
-        horizontalInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x;
-        verticalInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
         medRPM = (frontWheel.rpm + rearWheel.rpm) / 2;
         rbVelocityMagnitude = ms_Rigidbody.velocity.magnitude;
 

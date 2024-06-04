@@ -17,7 +17,7 @@ public class LevelBtn : MonoBehaviour
         {
             PlayerPrefs.SetInt("nrOfVehicles", level.numberOfVehicles);
             PlayerPrefs.SetInt("minDistanceToAdd", level.minDistanceToAdd);
-            SceneManager.LoadScene("_LogCityTrafficEscene 1");
+            SceneManager.LoadScene("Principal");
         });
     }
 }

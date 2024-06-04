@@ -3,6 +3,9 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 public class Log : MonoBehaviour
 {
@@ -13,16 +16,16 @@ public class Log : MonoBehaviour
     public LayerMask trafficLayer;
 
     [NonSerialized] public static string logCreationDate;
-    private string _logOutputPath;
+    [NonSerialized] public static string logOutputPath;
     private StreamWriter _logger;
     private Coroutine _coroutine;
     private float _startTime;
-    
+    private ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
+    private HashSet<string> _loggedLines = new HashSet<string>();
+
     private void Awake()
     {
         logCreationDate = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-        _logOutputPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            $"My Games/Bike AR/Logs/Log_{logCreationDate}");
         CreateCSV();
     }
 
@@ -31,21 +34,39 @@ public class Log : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         _startTime = Time.realtimeSinceStartup;
         _coroutine = StartCoroutine(CheckCollisions());
+        Task.Run(() => ProcessLogQueue());
     }
 
     private void CreateCSV()
     {
-        if (!Directory.Exists(_logOutputPath))
+#if !UNITY_EDITOR && UNITY_ANDROID
+        using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
         {
-            Directory.CreateDirectory(_logOutputPath);
+            AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            AndroidJavaObject filesDir = currentActivity.Call<AndroidJavaObject>("getExternalFilesDir", "Documents");
+            string androidPath = filesDir.Call<string>("getAbsolutePath");
+            
+            logOutputPath = Path.Combine(androidPath, "Bike AR\\Logs");
+            if (!Directory.Exists(logOutputPath))
+            {
+                Directory.CreateDirectory(logOutputPath);
+            }
         }
-
-        _logger = new StreamWriter($"{_logOutputPath}/{logCreationDate}.csv", true, Encoding.UTF8);
+#else
+        logOutputPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            $"My Games\\Bike AR\\Logs\\Log_{logCreationDate}");
+        if (!Directory.Exists(logOutputPath))
+        {
+            Directory.CreateDirectory(logOutputPath);
+        }
+#endif
+        _logger = new StreamWriter($"{logOutputPath}\\{logCreationDate}.csv", true, Encoding.UTF8);
         string header =
-            "Tiempo_Ejecucion(HH:mm:ss:ms),Riesgo_De_Accidente,Distancia,Nombre_Vehiculo,Posicion_Vehiculo,Velocidad_Vehiculo,Posicion_Bicicleta,Velocidad_Bicicleta";
+            "Tiempo_Ejecucion(HH:mm:ss:fff),Riesgo_De_Accidente,Distancia,Nombre_Vehiculo,Posicion_Vehiculo,Velocidad_Vehiculo,Posicion_Bicicleta,Velocidad_Bicicleta";
         _logger.WriteLine(header);
+        _logger.Flush();
     }
-    
+
     private float Velocity(Rigidbody rbVehicle)
     {
         float speed = rbVehicle.velocity.magnitude;
@@ -69,20 +90,20 @@ public class Log : MonoBehaviour
             string accidentRisk;
 
             Collider[] trafficObjects = Physics.OverlapSphere(transform.position, warningRadius, trafficLayer);
-            
+
             if (trafficObjects.Length == 0)
             {
                 bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
                 bikeSpeed = Velocity(rb);
-                TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup - _startTime);
-                lineRecord = $@"{elapsedTime:hh\:mm\:ss\:fff},,,,,,{bikePosition},{bikeSpeed:F8}";
-                _logger.WriteLine(lineRecord);
+                TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup);
+                lineRecord = $@"{elapsedTime.ToString(@"hh\:mm\:ss\.fff")},,,,,,{bikePosition},{bikeSpeed:F8}";
+                EnqueueLogLine(lineRecord);
             }
             else
             {
                 foreach (Collider trafficObject in trafficObjects)
                 {
-                    if (!trafficObject.CompareTag("Traffic")) continue;
+                    if (trafficObject.name != "BodyCollider") continue;
 
                     if (!Physics.Raycast(transform.position, trafficObject.transform.position - transform.position,
                             out var hit, warningRadius, trafficLayer)) continue;
@@ -95,22 +116,40 @@ public class Log : MonoBehaviour
                     bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
                     bikeSpeed = Velocity(rb);
                     accidentRisk = dangerRadius < distance && distance <= warningRadius ? "Bajo" : "Alto";
-                    TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup - _startTime);
+                    TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup);
                     lineRecord =
-                        $@"{elapsedTime:hh\:mm\:ss\:fff},{accidentRisk},{distance:F8},{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
+                        $@"{elapsedTime.ToString(@"hh\:mm\:ss\.fff")},{accidentRisk},{distance:F8},{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
 
-                    _logger.WriteLine(lineRecord);
+                    EnqueueLogLine(lineRecord);
                 }
             }
+
             yield return new WaitForSeconds(logWait);
         }
+    }
 
-        yield return null;
+    private void EnqueueLogLine(string line)
+    {
+        if (_loggedLines.Contains(line)) return;
+        _logQueue.Enqueue(line);
+        _loggedLines.Add(line);
+    }
+
+    private void ProcessLogQueue()
+    {
+        while (true)
+        {
+            if (_logQueue.TryDequeue(out string logLine))
+            {
+                _logger.WriteLine(logLine);
+                _logger.Flush();
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (_logger != null && other.collider.CompareTag("Traffic"))
+        if (other.collider.name == "BodyCollider")
         {
             string vehicleName = other.gameObject.name;
             Rigidbody VehicleRB = other.collider.attachedRigidbody;
@@ -118,10 +157,10 @@ public class Log : MonoBehaviour
             float vehicleSpeed = Velocity(VehicleRB);
             string bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
             float bikeSpeed = Velocity(rb);
-            TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup - _startTime);
+            TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup);
             string lineRecord =
-                $@"{elapsedTime:hh\:mm\:ss\:fff},Colisión,0,{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
-            _logger.WriteLine(lineRecord);
+                $@"{elapsedTime.ToString(@"hh\:mm\:ss\.fff")},Colisión,0,{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
+            EnqueueLogLine(lineRecord);
         }
     }
 
@@ -139,14 +178,9 @@ public class Log : MonoBehaviour
         }
         else
         {
-            _logger ??= new StreamWriter($"{_logOutputPath}/{logCreationDate}.csv", true);
+            _logger ??= new StreamWriter($"{logOutputPath}\\{logCreationDate}.csv", true);
             _coroutine = StartCoroutine(CheckCollisions());
         }
-    }
-
-    private void OnApplicationQuit()
-    {
-        _logger?.Close();
     }
 
     private void OnDrawGizmos()

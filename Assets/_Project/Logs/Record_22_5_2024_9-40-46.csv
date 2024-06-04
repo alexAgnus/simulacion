@@ -1,7 +1,0 @@
-Tiempo_Ejecucion(H:M:S),Riesgo_De_Accidente,Nombre_Vehiculo,Distancia,Posicion,Del,Vehiculo,Velocidad_Vehiculo,Posicion,De_La,Bicicleta,Velocidad_Bicicleta
-,,,,X,Y,Z,,X,Y,Z,
-00:00:18.4791980,Colision,OriginalSmallSedan(Clone)10,0.7486,678.20,7.86,651.57,3.19,677.35,7.52,652.68,3.57
-00:00:19.5766322,Alto,OriginalSmallSedan(Clone)10,2.2537,678.37,7.84,653.59,4.52,676.02,7.52,655.33,2.67
-00:00:19.7125022,Alto,OriginalSmallSedan(Clone)10,2.4132,678.45,7.85,654.04,4.86,675.82,7.52,655.64,2.67
-00:00:19.8546768,Bajo,OriginalSmallSedan(Clone)10,2.6285,678.57,8.04,654.55,5.21,675.63,7.52,655.96,2.67
-00:00:20.0209883,Bajo,OriginalSmallSedan(Clone)10,2.9291,678.74,8.04,655.19,5.60,675.41,7.52,656.32,2.67
