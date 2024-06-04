@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace GleyTrafficSystem
 {
@@ -24,6 +26,8 @@ namespace GleyTrafficSystem
 
         void Start()
         {
+            nrOfVehicles = PlayerPrefs.GetInt("nrOfVehicles", 20);
+            minDistanceToAdd = PlayerPrefs.GetInt("minDistanceToAdd", 150);
             Manager.Initialize(player, nrOfVehicles, vehiclePool, minDistanceToAdd, distanceToRemove, greenLightTime, yellowLightTime);
             //Uncomment this and a new traffic car will be added in front of your car most of the time
             //Manager.SetSpawnWaypointSelectorDelegate(GetBestNeighbor.GetForwardSpawnWaypoint);

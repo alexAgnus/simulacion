@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 
 public class Graph : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class Graph : MonoBehaviour
     private Node[] allNodes;
     public GameObject arrowGoal;
     public TMP_Text goalText;
-    
+    public string levelName;
     void Start()
     {
         allNodes = GameObject.FindGameObjectsWithTag("NodeDestino").Select(go => go.GetComponent<Node>()).ToArray();
@@ -131,6 +131,7 @@ public class Graph : MonoBehaviour
             if (num_de_metas == 3){
                 goalText.text="Felicidades!! ya terminaste \ntodo el recorrido :)";
                 arrowGoal.SetActive(false);
+                SceneManager.LoadScene(levelName);
             }else{
                 goalText.text=$"Llegaste al destino: {num_de_metas}\nSigue la flecha";
                 SelectNewEndNode();
