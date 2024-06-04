@@ -3,6 +3,9 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 public class Log : MonoBehaviour
 {
@@ -17,6 +20,8 @@ public class Log : MonoBehaviour
     private StreamWriter _logger;
     private Coroutine _coroutine;
     private float _startTime;
+    private ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
+    private HashSet<string> _loggedLines = new HashSet<string>();
 
     private void Awake()
     {
@@ -29,6 +34,7 @@ public class Log : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         _startTime = Time.realtimeSinceStartup;
         _coroutine = StartCoroutine(CheckCollisions());
+        Task.Run(() => ProcessLogQueue());
     }
 
     private void CreateCSV()
@@ -46,7 +52,7 @@ public class Log : MonoBehaviour
                 Directory.CreateDirectory(logOutputPath);
             }
         }
-#elif UNITY_EDITOR
+#else
         logOutputPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             $"My Games\\Bike AR\\Logs\\Log_{logCreationDate}");
         if (!Directory.Exists(logOutputPath))
@@ -58,6 +64,7 @@ public class Log : MonoBehaviour
         string header =
             "Tiempo_Ejecucion(HH:mm:ss:fff),Riesgo_De_Accidente,Distancia,Nombre_Vehiculo,Posicion_Vehiculo,Velocidad_Vehiculo,Posicion_Bicicleta,Velocidad_Bicicleta";
         _logger.WriteLine(header);
+        _logger.Flush();
     }
 
     private float Velocity(Rigidbody rbVehicle)
@@ -88,15 +95,14 @@ public class Log : MonoBehaviour
             {
                 bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
                 bikeSpeed = Velocity(rb);
-                TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup - _startTime);
-                lineRecord = $@"{elapsedTime:hh\:mm\:ss\:fff},,,,,,{bikePosition},{bikeSpeed:F8}";
-                _logger.WriteLine(lineRecord);
+                TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup);
+                lineRecord = $@"{elapsedTime.ToString(@"hh\:mm\:ss\.fff")},,,,,,{bikePosition},{bikeSpeed:F8}";
+                EnqueueLogLine(lineRecord);
             }
             else
             {
                 foreach (Collider trafficObject in trafficObjects)
                 {
-                    Debug.Log($"Collider Name: {trafficObject.name}");
                     if (trafficObject.name != "BodyCollider") continue;
 
                     if (!Physics.Raycast(transform.position, trafficObject.transform.position - transform.position,
@@ -110,23 +116,40 @@ public class Log : MonoBehaviour
                     bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
                     bikeSpeed = Velocity(rb);
                     accidentRisk = dangerRadius < distance && distance <= warningRadius ? "Bajo" : "Alto";
-                    TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup - _startTime);
+                    TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup);
                     lineRecord =
-                        $@"{elapsedTime:hh\:mm\:ss\:fff},{accidentRisk},{distance:F8},{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
+                        $@"{elapsedTime.ToString(@"hh\:mm\:ss\.fff")},{accidentRisk},{distance:F8},{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
 
-                    _logger.WriteLine(lineRecord);
+                    EnqueueLogLine(lineRecord);
                 }
             }
 
             yield return new WaitForSeconds(logWait);
         }
+    }
 
-        yield return null;
+    private void EnqueueLogLine(string line)
+    {
+        if (_loggedLines.Contains(line)) return;
+        _logQueue.Enqueue(line);
+        _loggedLines.Add(line);
+    }
+
+    private void ProcessLogQueue()
+    {
+        while (true)
+        {
+            if (_logQueue.TryDequeue(out string logLine))
+            {
+                _logger.WriteLine(logLine);
+                _logger.Flush();
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (_logger != null && other.collider.name == "BodyCollider")
+        if (other.collider.name == "BodyCollider")
         {
             string vehicleName = other.gameObject.name;
             Rigidbody VehicleRB = other.collider.attachedRigidbody;
@@ -134,10 +157,10 @@ public class Log : MonoBehaviour
             float vehicleSpeed = Velocity(VehicleRB);
             string bikePosition = $"{rb.position.x:F8}/{rb.position.y:F8}/{rb.position.z:F8}";
             float bikeSpeed = Velocity(rb);
-            TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup - _startTime);
+            TimeSpan elapsedTime = TimeSpan.FromSeconds(Time.realtimeSinceStartup);
             string lineRecord =
-                $@"{elapsedTime:hh\:mm\:ss\:fff},Colisión,0,{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
-            _logger.WriteLine(lineRecord);
+                $@"{elapsedTime.ToString(@"hh\:mm\:ss\.fff")},Colisión,0,{vehicleName},{vehiclePosition},{vehicleSpeed:F8},{bikePosition},{bikeSpeed:F8}";
+            EnqueueLogLine(lineRecord);
         }
     }
 
