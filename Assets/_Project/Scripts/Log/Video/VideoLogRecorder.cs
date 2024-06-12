@@ -82,8 +82,13 @@ public class VideoLogRecorder : MonoBehaviour
         };
         
         process.Start();
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
+        // process.BeginOutputReadLine();
+        // process.BeginErrorReadLine();
+
+        string s = process.StandardOutput.ReadToEnd();
+
+        Debug.Log("✅ ------------ process.StandardOutput.ReadToEnd");
+        Debug.Log(process.StandardOutput.ReadToEnd());
         process.WaitForExit();
 
         if (process.ExitCode == 0)
@@ -93,6 +98,7 @@ public class VideoLogRecorder : MonoBehaviour
         else
         {
             Debug.LogError("FFmpeg failed to create video.");
+            Debug.LogError(process.StandardError.ReadToEnd());
         }
 #endif
     }
