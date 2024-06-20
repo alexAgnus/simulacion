@@ -5,60 +5,67 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    public int remainingTime = 0;
-    public bool displayHrs = true;
-    public bool displayMins = true;
-    public bool timerRunning = false;
-    [SerializeField]
-    private TMP_Text text;
-    private IEnumerator TicToc(){
-        while(remainingTime > 0 && timerRunning){
-            remainingTime -= 1;
-            UpdateText();
-            yield return new WaitForSeconds(1);
+    public int startTime = 0;  // Tiempo de inicio en segundos
+    public bool displayHrs = true;  // Mostrar horas
+    public bool displayMins = true; // Mostrar minutos
+    public bool timerRunning = false; // Indica si el cronómetro está en marcha
 
+    [SerializeField]
+    private TMP_Text _text; // Referencia al componente TMP_Text para mostrar el tiempo
+
+    private float _elapsedTime; // Tiempo transcurrido en segundos
+
+    void Start()
+    {
+        _elapsedTime = startTime;
+        UpdateTimerDisplay();
+    }
+
+    void Update()
+    {
+        if (timerRunning)
+        {
+            _elapsedTime += Time.deltaTime;
+            UpdateTimerDisplay();
         }
     }
 
+    void UpdateTimerDisplay()
+    {
+        int hours = Mathf.FloorToInt(_elapsedTime / 3600);
+        int minutes = Mathf.FloorToInt((_elapsedTime % 3600) / 60);
+        int seconds = Mathf.FloorToInt(_elapsedTime % 60);
 
-    public void ResetTimer(int hrs = 0, int mins = 0, int secs = 0){
-        remainingTime = (hrs * 3600) + (mins * 60) + secs;
-        
-        UpdateText();
+        string timeString = "";
+
+        if (displayHrs)
+        {
+            timeString += hours.ToString("00") + ":";
+        }
+
+        if (displayMins || displayHrs)
+        {
+            timeString += minutes.ToString("00") + ":";
+        }
+
+        timeString += seconds.ToString("00");
+
+        _text.text = timeString;
     }
 
-    public void StartTimer(){
+    public void StartTimer()
+    {
         timerRunning = true;
-        StartCoroutine("TicToc");
     }
 
-    public void PauseTimer(){
+    public void StopTimer()
+    {
         timerRunning = false;
     }
 
-    private void UpdateText(){
-        int temp = remainingTime;
-        string timerText = "";
-
-        if(displayHrs && displayMins){
-            int hrs = temp / 3600; 
-            temp = temp - (hrs * 3600);
-
-            if(hrs < 10) timerText += "0";
-            timerText += $"{hrs}:";
-        }
-        if(displayMins){
-            int mins = temp / 60;
-            temp = temp - (mins * 60);
-            if(mins < 10) timerText += "0";
-            timerText += $"{mins}:";
-        }
-        
-        int secs = temp;
-
-        if(secs < 10) timerText += "0";
-        timerText += $"{secs}";
-
-        text.text = timerText;
+    public void ResetTimer()
+    {
+        _elapsedTime = startTime;
+        UpdateTimerDisplay();
     }
 }

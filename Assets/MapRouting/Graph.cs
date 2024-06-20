@@ -13,18 +13,20 @@ public class Graph : MonoBehaviour
     private Node end;
 
     private List<Node> path;
-    private int num_de_metas = 0;
+    private int currentPoints = 0;
     
     private Node[] allNodes;
     public GameObject arrowGoal;
-    public TMP_Text goalText;
+    // public TMP_Text goalText;
+    public TMP_Text currentPointText;
     public string levelName;
     void Start()
     {
         allNodes = GameObject.FindGameObjectsWithTag("NodeDestino").Select(go => go.GetComponent<Node>()).ToArray();
         SelectNewEndNode();
         PlayGoalAnimation(); 
-        goalText.text="Sigue la flecha";
+        // goalText.text="Sigue la flecha";
+        currentPointText.text = this.currentPoints.ToString();
         Arrow arrow = FindObjectOfType<Arrow>();
         path = AStarPathfinding(start, end);
         Node newPlayerObject = path[0];
@@ -125,15 +127,17 @@ public class Graph : MonoBehaviour
         {
             node.changeStatus("path");
         }
+
         if (start.name == end.name)
         {
-            num_de_metas+=1;
-            if (num_de_metas == 3){
-                goalText.text="Felicidades!! ya terminaste \ntodo el recorrido :)";
+            currentPoints+=1;
+            currentPointText.text = currentPoints.ToString();
+            if (currentPoints == 3){
+                // goalText.text="Felicidades!! ya terminaste \ntodo el recorrido :)";
                 arrowGoal.SetActive(false);
                 SceneManager.LoadScene(levelName);
             }else{
-                goalText.text=$"Llegaste al destino: {num_de_metas}\nSigue la flecha";
+                // goalText.text=$"Llegaste al destino: {currentPoints}\nSigue la flecha";
                 SelectNewEndNode();
                 PlayGoalAnimation();
                 Node newPlayerObject = path[1];
@@ -150,7 +154,8 @@ public class Graph : MonoBehaviour
             {
                 arrow.nodepath = newPlayerObject.transform;
             }
-            goalText.text="Sigue la flecha";
+            // goalText.text="Sigue la flecha";
+            currentPointText.text = this.currentPoints.ToString();
         }
         start.changeStatus("start");
         end.changeStatus("end");
