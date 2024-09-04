@@ -66,10 +66,14 @@ public class Bicycle : MonoBehaviour
         // Inicialización opcional
     }
 
+    void Update()
+    { }
+
     private void FixedUpdate()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
         medRPM = (frontWheel.rpm + rearWheel.rpm) / 2;
         rbVelocityMagnitude = ms_Rigidbody.velocity.magnitude;
 
@@ -80,7 +84,7 @@ public class Bicycle : MonoBehaviour
         float inclineAngle = Vector3.Angle(Vector3.up, transform.forward);
         bool isClimbing = inclineAngle < hillAssistAngleThreshold;
 
-        Debug.Log("❤️ inclineAngle" + inclineAngle + "❤️ hillAssistAngleThreshold" + hillAssistAngleThreshold + "❤️ isClimbing" + (isClimbing ? "✅" : "✖️"));
+        // Debug.Log("❤️ inclineAngle" + inclineAngle + "❤️ hillAssistAngleThreshold" + hillAssistAngleThreshold + "❤️ isClimbing" + (isClimbing ? "✅" : "✖️"));
         if (isClimbing)
         {
             torque *= hillAssistTorqueMultiplier;
@@ -128,11 +132,6 @@ public class Bicycle : MonoBehaviour
         }
 
         Stabilizer();
-    }
-
-    void Update()
-    {
-        // Actualización opcional
     }
 
     private void Stabilizer()

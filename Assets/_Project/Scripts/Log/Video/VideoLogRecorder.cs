@@ -15,7 +15,7 @@ public class VideoLogRecorder : MonoBehaviour
     private void Start()
     {
         _logCreationDate = Log.logCreationDate;
-        _logOutputPath = Log.logOutputPath;
+        // _logOutputPath = Log.logOutputPath;
         GenerateVideoData();
     }
 
@@ -106,8 +106,8 @@ public class VideoLogRecorder : MonoBehaviour
     private void CreateRecording()
     {
         string ffmpegCommand = $"-framerate {framerate} -i \"{_logOutputPath}\\Frames\\Frame_%08d.png\" -c:v libx264 -pix_fmt yuv420p \"{_logOutputPath}\\Log_{_logCreationDate}.mp4\"";
-        RunFFmpegCommand(ffmpegCommand);
-        Directory.Delete($"{_logOutputPath}\\Frames", true);
+        // RunFFmpegCommand(ffmpegCommand);
+        // Directory.Delete($"{_logOutputPath}\\Frames", true);
     }
 
     private void OnDestroy()

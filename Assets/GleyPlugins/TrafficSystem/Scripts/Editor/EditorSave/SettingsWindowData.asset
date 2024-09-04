@@ -85,10 +85,10 @@ MonoBehaviour:
     maxSpeed: 30
     globalCarList: 
   speedEditedWaypointsSettings:
-    showConnections: 0
-    showOtherLanes: 0
-    showSpeed: 0
-    showCars: 0
+    showConnections: 1
+    showOtherLanes: 1
+    showSpeed: 1
+    showCars: 1
   giveWayWaypointsSettings:
     showConnections: 1
     showOtherLanes: 1

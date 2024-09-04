@@ -7,28 +7,33 @@ using UnityEngine.SceneManagement;
 
 public class Graph : MonoBehaviour
 {
-    
+
     [SerializeField]
     public Node start;
     private Node end;
 
     private List<Node> path;
     private int currentPoints = 0;
-    
+
+    [SerializeField]
+    public int maxPoints = 2;
+
     private Node[] allNodes;
     public GameObject arrowGoal;
     // public TMP_Text goalText;
     public TMP_Text currentPointText;
+    public TMP_Text maxPointsText;
     public string levelName;
     void Start()
     {
         allNodes = GameObject.FindGameObjectsWithTag("NodeDestino").Select(go => go.GetComponent<Node>()).ToArray();
         SelectNewEndNode();
-        PlayGoalAnimation(); 
+        PlayGoalAnimation();
         // goalText.text="Sigue la flecha";
         currentPointText.text = this.currentPoints.ToString();
+        maxPointsText.text = $"/{maxPoints}";
         Arrow arrow = FindObjectOfType<Arrow>();
-        path = AStarPathfinding(start, end);
+        path = AStarPathFinding(start, end);
         Node newPlayerObject = path[0];
         if (newPlayerObject != null && arrow != null)
         {
@@ -47,10 +52,10 @@ public class Graph : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
-    List<Node> AStarPathfinding(Node start, Node goal)
+    List<Node> AStarPathFinding(Node start, Node goal)
     {
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
@@ -89,7 +94,7 @@ public class Graph : MonoBehaviour
                 fScore[neighbor] = gScore[neighbor] + HeuristicCostEstimate(neighbor, goal);
             }
         }
-        return new List<Node>(); 
+        return new List<Node>();
     }
 
     float HeuristicCostEstimate(Node node, Node goal)
@@ -121,7 +126,7 @@ public class Graph : MonoBehaviour
     public void RecalculateRoute(Node newStart)
     {
         start = newStart;
-        path = AStarPathfinding(start, end);
+        path = AStarPathFinding(start, end);
         Arrow arrow = FindObjectOfType<Arrow>();
         foreach (Node node in path)
         {
@@ -130,13 +135,16 @@ public class Graph : MonoBehaviour
 
         if (start.name == end.name)
         {
-            currentPoints+=1;
+            currentPoints += 1;
             currentPointText.text = currentPoints.ToString();
-            if (currentPoints == 3){
+            if (currentPoints == maxPoints)
+            {
                 // goalText.text="Felicidades!! ya terminaste \ntodo el recorrido :)";
                 arrowGoal.SetActive(false);
                 SceneManager.LoadScene(levelName);
-            }else{
+            }
+            else
+            {
                 // goalText.text=$"Llegaste al destino: {currentPoints}\nSigue la flecha";
                 SelectNewEndNode();
                 PlayGoalAnimation();
@@ -171,7 +179,7 @@ public class Graph : MonoBehaviour
                 newEnd = allNodes[Random.Range(0, allNodes.Length)];
             } while (newEnd == end); // Ensure the new end node is different from the current end node
             end = newEnd;
-            path = AStarPathfinding(start, end);
+            path = AStarPathFinding(start, end);
             foreach (Node node in path)
             {
                 node.changeStatus("path");
@@ -189,8 +197,5 @@ public class Graph : MonoBehaviour
         sourcePosition.y += 1.0f;
         arrowGoal.transform.position = sourcePosition;
     }
-
-    
-
 }
 

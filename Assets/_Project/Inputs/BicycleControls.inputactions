@@ -1,0 +1,54 @@
+{
+    "name": "BicycleControls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "0fd36804-2354-476b-8db9-75cf32fdf73d",
+            "actions": [
+                {
+                    "name": "VerticalVR",
+                    "type": "Value",
+                    "id": "7491f04c-70a2-41b0-8d41-2f0bab3844e2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "HorizontalVR",
+                    "type": "Button",
+                    "id": "178a3119-c401-4ee2-9955-7a75383dcd9e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "53880164-2850-45e5-ae70-86e909afedc7",
+                    "path": "<OculusTouchController>{RightHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalVR",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b21019cc-7b2e-488e-bce5-979f1e384c1d",
+                    "path": "<OculusTouchController>{LeftHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HorizontalVR",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
