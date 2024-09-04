@@ -15,7 +15,7 @@ public class VideoLogRecorder : MonoBehaviour
     private void Start()
     {
         _logCreationDate = Log.logCreationDate;
-        _logOutputPath = Log.logOutputPath;
+        // _logOutputPath = Log.logOutputPath;
         GenerateVideoData();
     }
 
@@ -82,8 +82,13 @@ public class VideoLogRecorder : MonoBehaviour
         };
         
         process.Start();
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
+        // process.BeginOutputReadLine();
+        // process.BeginErrorReadLine();
+
+        string s = process.StandardOutput.ReadToEnd();
+
+        Debug.Log("✅ ------------ process.StandardOutput.ReadToEnd");
+        Debug.Log(process.StandardOutput.ReadToEnd());
         process.WaitForExit();
 
         if (process.ExitCode == 0)
@@ -93,6 +98,7 @@ public class VideoLogRecorder : MonoBehaviour
         else
         {
             Debug.LogError("FFmpeg failed to create video.");
+            Debug.LogError(process.StandardError.ReadToEnd());
         }
 #endif
     }
@@ -100,8 +106,8 @@ public class VideoLogRecorder : MonoBehaviour
     private void CreateRecording()
     {
         string ffmpegCommand = $"-framerate {framerate} -i \"{_logOutputPath}\\Frames\\Frame_%08d.png\" -c:v libx264 -pix_fmt yuv420p \"{_logOutputPath}\\Log_{_logCreationDate}.mp4\"";
-        RunFFmpegCommand(ffmpegCommand);
-        Directory.Delete($"{_logOutputPath}\\Frames", true);
+        // RunFFmpegCommand(ffmpegCommand);
+        // Directory.Delete($"{_logOutputPath}\\Frames", true);
     }
 
     private void OnDestroy()

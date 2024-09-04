@@ -19,6 +19,8 @@ public class VelManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        velocimeter.SetVelocityTo(bikeRB.velocity.magnitude);
+        velocimeter.SetVelocityTo(
+            bikeRB.velocity.magnitude * 3.6f
+        );
     }
 }

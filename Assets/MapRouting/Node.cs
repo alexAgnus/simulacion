@@ -17,8 +17,10 @@ public class Node : MonoBehaviour
     [SerializeField]
     private Material defaultMaterial;
 
-    public void changeStatus(string stauts){
-        switch(stauts){
+    public void changeStatus(string stauts)
+    {
+        switch (stauts)
+        {
             case "start":
                 ChangeMaterial(startMaterial);
                 break;
@@ -34,30 +36,34 @@ public class Node : MonoBehaviour
         }
     }
 
-    private void ChangeMaterial(Material mat){
+    private void ChangeMaterial(Material mat)
+    {
         GetComponent<MeshRenderer>().material = mat;
     }
 
-    private void OnDrawGizmosSelected() {
+    private void OnDrawGizmosSelected()
+    {
         Vector3 pos = this.getPosition();
         Gizmos.color = new Color(1.0f, 1.0f, 0.0f, 0.9f);
 
         float delta = 0.5f;
 
-        for(int i = 0; i < Neighbors.Length; i++){
+        for (int i = 0; i < Neighbors.Length; i++)
+        {
             Vector3 nextPos = Neighbors[i].getPosition();
             Vector3 direction = nextPos - pos;
             Vector3 startPos = pos;
 
             float angle = Mathf.Atan2(direction.z, direction.x) + 0.5f * Mathf.PI;
-            Vector3 desviation = new Vector3(Mathf.Cos(angle) * delta,0.0f,Mathf.Sin(angle) * delta);
-            
+            Vector3 desviation = new Vector3(Mathf.Cos(angle) * delta, 0.0f, Mathf.Sin(angle) * delta);
+
             Gizmos.DrawRay(startPos + desviation, direction);
         }
-        
+
     }
 
-    public Vector3 getPosition(){
+    public Vector3 getPosition()
+    {
         return transform.position;
     }
 

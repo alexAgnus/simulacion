@@ -12,16 +12,33 @@ public class Bicycle : MonoBehaviour
     [SerializeField]
     private WheelCollider rearWheel;
     private Rigidbody ms_Rigidbody;
-    
-    [SerializeField] 
-    private float speedLimit = 10; // 10 m/s = 36 km/h
-    [SerializeField] 
+
+    [SerializeField]
+    private float speedLimitInMetersPerSeconds = 8.0f;
+    [SerializeField]
     private float torqueAccel;
 
     private float rbVelocityMagnitude;
     private float horizontalInput;
     private float verticalInput;
     private float medRPM;
+
+    [SerializeField]
+    private float maxSteerAngle = 25.0f;
+
+    [SerializeField]
+    private float lerpCoefficientToSteerAngle = 10.0f;
+
+    [SerializeField]
+    private float brakeForce = 10.0f;
+
+    [SerializeField]
+    public AnimationCurve accelerationCurve;
+
+    [SerializeField]
+    public float hillAssistTorqueMultiplier = 2.5f;
+    [SerializeField]
+    public float hillAssistAngleThreshold = 85.0f;
 
     private void Awake()
     {
@@ -49,27 +66,50 @@ public class Bicycle : MonoBehaviour
         // Inicialización opcional
     }
 
+    void Update()
+    { }
+
     private void FixedUpdate()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
         medRPM = (frontWheel.rpm + rearWheel.rpm) / 2;
         rbVelocityMagnitude = ms_Rigidbody.velocity.magnitude;
 
+        float accelFactor = accelerationCurve.Evaluate(rbVelocityMagnitude / speedLimitInMetersPerSeconds);
+        float torque = verticalInput * ms_Rigidbody.mass * torqueAccel * accelFactor;
+        // Debug.Log("❤️ accelFactor" + accelFactor + "❤️ torque" + torque + "❤️ rbVelocityMagnitude" + rbVelocityMagnitude + "❤️ speedLimit" + speedLimit + "❤️ medRPM" + medRPM + "❤️ verticalInput" + verticalInput + "❤️ horizontalInput" + horizontalInput + "❤️");
+
+        float inclineAngle = Vector3.Angle(Vector3.up, transform.forward);
+        bool isClimbing = inclineAngle < hillAssistAngleThreshold;
+
+        // Debug.Log("❤️ inclineAngle" + inclineAngle + "❤️ hillAssistAngleThreshold" + hillAssistAngleThreshold + "❤️ isClimbing" + (isClimbing ? "✅" : "✖️"));
+        if (isClimbing)
+        {
+            torque *= hillAssistTorqueMultiplier;
+        }
+
         // motorTorque
-        if (medRPM > 0) 
+        if (medRPM > 0)
         {
-            if (ms_Rigidbody.velocity.magnitude * Mathf.Sign(verticalInput) < speedLimit)
-                rearWheel.motorTorque = verticalInput * ms_Rigidbody.mass * torqueAccel;
-        } 
-        else 
+            if (ms_Rigidbody.velocity.magnitude * Mathf.Sign(verticalInput) < speedLimitInMetersPerSeconds)
+                rearWheel.motorTorque = torque * accelFactor;
+        }
+        else
         {
-            rearWheel.motorTorque = verticalInput * ms_Rigidbody.mass * torqueAccel / 2.0f;
+            rearWheel.motorTorque = torque * accelFactor / 2.0f;
         }
 
         // steerAngle
-        float nextAngle = horizontalInput * 35.0f;
-        frontWheel.steerAngle = Mathf.Lerp(frontWheel.steerAngle, nextAngle, 0.125f);
+        float nextAngle = horizontalInput * maxSteerAngle;
+        float speedFactor = Mathf.Clamp01(rbVelocityMagnitude / 10.0f);
+        float steerAngle = horizontalInput * Mathf.Lerp(maxSteerAngle, maxSteerAngle / 2.0f, speedFactor);
+        frontWheel.steerAngle = Mathf.Lerp(
+            frontWheel.steerAngle,
+            steerAngle,
+            Time.deltaTime * lerpCoefficientToSteerAngle
+        );
 
         if (Mathf.Abs(rearWheel.rpm) > 10000)
         {
@@ -77,21 +117,21 @@ public class Bicycle : MonoBehaviour
             rearWheel.brakeTorque = ms_Rigidbody.mass * 5;
         }
 
-        if (rbVelocityMagnitude < 1.0f && Mathf.Abs(verticalInput) < 0.1f) 
+        if (verticalInput < 0 && rbVelocityMagnitude > 2.0f)
+        {
+            float _brakeForce = ms_Rigidbody.mass * brakeForce;
+            rearWheel.brakeTorque = frontWheel.brakeTorque = Mathf.Abs(verticalInput) * _brakeForce;
+        }
+        else if (rbVelocityMagnitude < 1.0f && Mathf.Abs(verticalInput) < 0.1f)
         {
             rearWheel.brakeTorque = frontWheel.brakeTorque = ms_Rigidbody.mass * 2.0f;
-        } 
-        else 
+        }
+        else
         {
             rearWheel.brakeTorque = frontWheel.brakeTorque = 0.0f;
         }
 
         Stabilizer();
-    }
-
-    void Update()
-    {
-        // Actualización opcional
     }
 
     private void Stabilizer()
@@ -100,10 +140,10 @@ public class Bicycle : MonoBehaviour
         Vector3 torqueForce = axisFromRotate.normalized * axisFromRotate.magnitude * 50;
         torqueForce.x = torqueForce.x * 0.4f;
         torqueForce -= ms_Rigidbody.angularVelocity;
-        ms_Rigidbody.AddTorque(torqueForce * ms_Rigidbody.mass * 0.02f, ForceMode.Impulse);
+        ms_Rigidbody.AddTorque(torqueForce * ms_Rigidbody.mass * 0.03f, ForceMode.Impulse);
 
-        float rpmSign = Mathf.Sign(medRPM) * 0.02f;
-        if (rbVelocityMagnitude > 1.0f && frontWheel.isGrounded && rearWheel.isGrounded) 
+        float rpmSign = Mathf.Sign(medRPM) * 0.03f;
+        if (rbVelocityMagnitude > 1.0f && frontWheel.isGrounded && rearWheel.isGrounded)
         {
             ms_Rigidbody.angularVelocity += new Vector3(0, horizontalInput * rpmSign, 0);
         }
