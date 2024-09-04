@@ -23,8 +23,8 @@ MonoBehaviour:
   viewRoadsSave:
     viewRoadsSettings:
       viewLanes: 1
-      viewWaypoints: 0
-      viewLaneChanges: 0
+      viewWaypoints: 1
+      viewLaneChanges: 1
   connectRoadsSave:
     viewRoadsSettings:
       viewLanes: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
       viewLaneChanges: 1
     waypointDistance: 4
   roadDefaults:
-    nrOfLanes: 2
+    nrOfLanes: 4
     laneWidth: 4
     waypointDistance: 4
   roadColors:
@@ -57,9 +57,9 @@ MonoBehaviour:
     - {r: 1, g: 1, b: 1, a: 1}
     active: 0101
   allWaypointsSettings:
-    showConnections: 0
-    showOtherLanes: 0
-    showSpeed: 0
+    showConnections: 1
+    showOtherLanes: 1
+    showSpeed: 1
     showCars: 0
   disconnectedWaypointsSettings:
     showConnections: 1
@@ -79,16 +79,16 @@ MonoBehaviour:
   editRoadSave:
     viewRoadsSettings:
       viewLanes: 0
-      viewWaypoints: 0
-      viewLaneChanges: 0
+      viewWaypoints: 1
+      viewLaneChanges: 1
     moveTool: 1
-    maxSpeed: 50
+    maxSpeed: 30
     globalCarList: 
   speedEditedWaypointsSettings:
-    showConnections: 0
-    showOtherLanes: 0
-    showSpeed: 0
-    showCars: 0
+    showConnections: 1
+    showOtherLanes: 1
+    showSpeed: 1
+    showCars: 1
   giveWayWaypointsSettings:
     showConnections: 1
     showOtherLanes: 1
@@ -101,8 +101,13 @@ MonoBehaviour:
     showCars: 0
   speedRoutesSave:
     routesColor:
-    - {r: 1, g: 1, b: 1, a: 1}
-    active: 01
+    - {r: 0.67104197, g: 0.7830189, b: 0.2474635, a: 1}
+    - {r: 0.3280082, g: 0.41596976, b: 0.764151, a: 1}
+    - {r: 0.754717, g: 0.19579923, b: 0.19579923, a: 1}
+    - {r: 0.764151, g: 0.55766046, b: 0.2270826, a: 1}
+    - {r: 0.22745098, g: 0.7906352, b: 0.81960785, a: 1}
+    - {r: 0.6037736, g: 0.3195555, b: 0.09967959, a: 1}
+    active: 010101010101
   intersectionSave:
     showAll: 0
     showExit: 1

@@ -26,7 +26,7 @@ namespace GleyTrafficSystem
         float currentHeight;
         Quaternion currentRotation;
 
-        void FixedUpdate()
+        void LateUpdate()
         {
             if (target)
             {
