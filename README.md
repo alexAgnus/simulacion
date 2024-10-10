@@ -1,4 +1,4 @@
-# Electric Scooter Simulation VR
+# Bicycle and Electric Scooter Simulation VR
 
 ![Project Logo](/path/to/logo.png)
 
@@ -13,7 +13,7 @@
 
 ## Introduction
 
-The Electric Scooter Simulation VR is a Unity project aimed at providing an educational experience. It is a game that allows users to identify driving problems, driver risks, and errors in a virtual reality environment.
+The Bicycle and Electric Scooter Simulation VR is a Unity project aimed at providing an educational experience. It is a game that allows users to identify driving problems, driver risks, and errors in a virtual reality environment.
 
 ## Features
 
